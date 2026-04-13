@@ -20,7 +20,7 @@
     - mysql
   
   - name: create login_user
-    ansible.builtin.user;
+    ansible.builtin.user:
      name: expense
 
   - name: make app directory
