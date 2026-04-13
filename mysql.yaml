@@ -23,7 +23,7 @@
       state: started
       enabled: yes
 
-  - name: set root password
+  - name: connect mysql server
     community.mysql.mysql_info: 
       login_user: root
       login_password: "{{ mysql_root_password }}"
