@@ -33,7 +33,7 @@
      url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
      dest: /tmp/backend.zip
 
-  - name: Extract backend code into /var/lib/foo
+  - name: Extract backend code
     ansible.builtin.unarchive:
      src: /tmp/backend.zip
      dest: /app
@@ -67,6 +67,7 @@
 
   - name: demeon reload 
     ansible.builtin.systemd_service:
+     name: backend
      state: restarted
      daemon_reload: true
 
