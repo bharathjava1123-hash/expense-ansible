@@ -1,6 +1,9 @@
 - name: mysql configuration
   hosts: mysql
   become: yes
+  vars:
+    mysql_root_password: ExpenseApp@1
+    login_host: bharath.bond
   tasks:
   - name: ansible to install pymysql
     ansible.builtin.pip:
@@ -18,3 +21,15 @@
       name: mysqld
       state: started
       enabled: yes
+
+  - name: set root password
+    community.mysql.mysql_info: 
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      login_host: "{{ login_host }}"
+    ignore_errors: true
+    register: mysql_info
+
+  - name: setup MySQL root password
+    ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}"
+    when: mysql_info.failed is true
